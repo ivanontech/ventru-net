@@ -1,0 +1,85 @@
+{
+  "name": "Ventru.net Stripe Payment Rail",
+  "version": "0.1",
+  "status": "demo_ready",
+  "description": "Card, subscription, and invoice-friendly payment rail for humans and businesses using Ventru while x402 serves autonomous agent micropayments.",
+  "requirements": {
+    "paid_capsule": {
+      "rail": "stripe",
+      "mode": "demo_checkout_manifest",
+      "currency": "usd",
+      "amount_cents": 100,
+      "amount_usd": 1,
+      "product": "Ventru Action Capsule API Credit",
+      "resource": "http://ventru.net/api/stripe/checkout-session",
+      "purpose": "paid_action_capsule_generation",
+      "checkout_session_endpoint": "http://ventru.net/api/stripe/checkout-session",
+      "quote_endpoint": "http://ventru.net/api/stripe/quote",
+      "success_url": "http://ventru.net/?stripe=success",
+      "cancel_url": "http://ventru.net/?stripe=cancel",
+      "payment_link": "https://buy.stripe.com/ventru-demo-action-capsule",
+      "receipt_header": "X-STRIPE-SESSION",
+      "settlement": "demo returns checkout_url; production verifies Stripe checkout.session.completed webhook before enabling paid resources"
+    },
+    "claimed_profile": {
+      "rail": "stripe",
+      "mode": "demo_checkout_manifest",
+      "currency": "usd",
+      "amount_cents": 4900,
+      "amount_usd": 49,
+      "product": "Ventru Claimed Profile",
+      "resource": "http://ventru.net/api/stripe/checkout-session",
+      "purpose": "claimed_profile_subscription",
+      "checkout_session_endpoint": "http://ventru.net/api/stripe/checkout-session",
+      "quote_endpoint": "http://ventru.net/api/stripe/quote",
+      "success_url": "http://ventru.net/?stripe=success",
+      "cancel_url": "http://ventru.net/?stripe=cancel",
+      "payment_link": "https://buy.stripe.com/ventru-demo-action-capsule",
+      "receipt_header": "X-STRIPE-SESSION",
+      "settlement": "demo returns checkout_url; production verifies Stripe checkout.session.completed webhook before enabling paid resources"
+    },
+    "verified_trustgraph": {
+      "rail": "stripe",
+      "mode": "demo_checkout_manifest",
+      "currency": "usd",
+      "amount_cents": 19900,
+      "amount_usd": 199,
+      "product": "Ventru Verified TrustGraph",
+      "resource": "http://ventru.net/api/stripe/checkout-session",
+      "purpose": "verified_trustgraph_subscription",
+      "checkout_session_endpoint": "http://ventru.net/api/stripe/checkout-session",
+      "quote_endpoint": "http://ventru.net/api/stripe/quote",
+      "success_url": "http://ventru.net/?stripe=success",
+      "cancel_url": "http://ventru.net/?stripe=cancel",
+      "payment_link": "https://buy.stripe.com/ventru-demo-action-capsule",
+      "receipt_header": "X-STRIPE-SESSION",
+      "settlement": "demo returns checkout_url; production verifies Stripe checkout.session.completed webhook before enabling paid resources"
+    },
+    "action_ready_provider": {
+      "rail": "stripe",
+      "mode": "demo_checkout_manifest",
+      "currency": "usd",
+      "amount_cents": 49900,
+      "amount_usd": 499,
+      "product": "Ventru Action-Ready Provider",
+      "resource": "http://ventru.net/api/stripe/checkout-session",
+      "purpose": "action_ready_provider_subscription",
+      "checkout_session_endpoint": "http://ventru.net/api/stripe/checkout-session",
+      "quote_endpoint": "http://ventru.net/api/stripe/quote",
+      "success_url": "http://ventru.net/?stripe=success",
+      "cancel_url": "http://ventru.net/?stripe=cancel",
+      "payment_link": "https://buy.stripe.com/ventru-demo-action-capsule",
+      "receipt_header": "X-STRIPE-SESSION",
+      "settlement": "demo returns checkout_url; production verifies Stripe checkout.session.completed webhook before enabling paid resources"
+    }
+  },
+  "webhook": {
+    "endpoint": "http://ventru.net/api/stripe/webhook",
+    "verifies": [
+      "checkout.session.completed",
+      "invoice.paid",
+      "payment_intent.succeeded"
+    ]
+  },
+  "note": "MVP returns demo checkout URLs when STRIPE_SECRET_KEY is absent. Production should store the Stripe session id and verify webhooks before granting paid capabilities."
+}

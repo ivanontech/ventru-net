@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: http://ventru.net/sitemap.xml
+LLM-Content: http://ventru.net/llms.txt
+Agent-Manifest: http://ventru.net/.well-known/agent.json

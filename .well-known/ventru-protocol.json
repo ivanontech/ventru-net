@@ -1,0 +1,73 @@
+{
+  "name": "Ventru Action Capsule Protocol",
+  "version": "0.1",
+  "status": "experimental_proprietary",
+  "purpose": "A future-web routing format for autonomous agents that need signed, expiring, trusted provider routes, callable actions, and settlement attribution without scraping human pages.",
+  "capsule_endpoint": "http://ventru.net/api/capsule",
+  "packet_endpoint": "http://ventru.net/api/intent",
+  "paid_capsule_endpoint": "http://ventru.net/api/paid/capsule",
+  "x402_manifest": "http://ventru.net/.well-known/x402.json",
+  "stripe_manifest": "http://ventru.net/.well-known/stripe.json",
+  "payment_rails_manifest": "http://ventru.net/.well-known/payment-rails.json",
+  "agent_submit_endpoint": "http://ventru.net/api/agent-submit",
+  "webprobe_endpoint": "http://ventru.net/api/discover",
+  "outcome_endpoint": "http://ventru.net/api/outcome",
+  "mcp_manifest": "http://ventru.net/.well-known/mcp.json",
+  "capsule_type": "signed_action_capsule",
+  "packet_type": "agent_intent_route",
+  "proprietary_signals": [
+    "AgentRank",
+    "TrustProof",
+    "Actionability",
+    "BudgetFit",
+    "SettlementAttribution",
+    "WebProbe",
+    "OutcomeTelemetry"
+  ],
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {
+        "type": "string",
+        "example": "emergency roof leak repair"
+      },
+      "location": {
+        "type": "string",
+        "example": "Palm Beach"
+      },
+      "budget": {
+        "type": "number",
+        "example": 500
+      },
+      "urgency": {
+        "type": "string",
+        "example": "today"
+      },
+      "action": {
+        "type": "string",
+        "enum": [
+          "request_quote",
+          "check_availability",
+          "book_consult"
+        ]
+      }
+    },
+    "required": [
+      "task"
+    ]
+  },
+  "output_includes": [
+    "signed_action_capsule",
+    "ranked_routes",
+    "agent_rank",
+    "trust_proof",
+    "decision_trace",
+    "action_endpoint",
+    "required_agent_fields",
+    "settlement_attribution",
+    "expiry_timestamp",
+    "sha256_signature",
+    "x402_payment_requirement",
+    "stripe_checkout_requirement"
+  ]
+}

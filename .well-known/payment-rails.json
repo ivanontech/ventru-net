@@ -1,0 +1,70 @@
+{
+  "name": "Ventru.net Payment Rails",
+  "version": "0.1",
+  "status": "dual_rail_demo_ready",
+  "thesis": "x402 is the native machine-payment rail for autonomous agents; Stripe is the familiar card/subscription rail for human businesses and current SaaS buyers.",
+  "preferred_by_context": {
+    "autonomous_agents": "x402",
+    "human_merchants": "stripe",
+    "enterprise_buyers": "stripe_invoice_or_card",
+    "crypto_native_agents": "x402_usdc"
+  },
+  "rails": {
+    "x402": {
+      "manifest": "http://ventru.net/.well-known/x402.json",
+      "quote": "http://ventru.net/api/x402/quote",
+      "paid_capsule": {
+        "x402_version": "0.1",
+        "scheme": "exact",
+        "network": "base-sepolia",
+        "asset": "USDC",
+        "amount": "0.01",
+        "pay_to": "0xVentruTreasuryDemo000000000000000000000000",
+        "resource": "http://ventru.net/api/paid/capsule",
+        "purpose": "paid_action_capsule_generation",
+        "settlement": "demo_accepts_x-payment_header; production verifies x402 facilitator receipt",
+        "payment_header": "X-PAYMENT",
+        "facilitator": "http://ventru.net/api/x402/status"
+      }
+    },
+    "stripe": {
+      "manifest": "http://ventru.net/.well-known/stripe.json",
+      "quote": "http://ventru.net/api/stripe/quote",
+      "checkout_session": {
+        "rail": "stripe",
+        "mode": "demo_checkout_manifest",
+        "currency": "usd",
+        "amount_cents": 100,
+        "amount_usd": 1,
+        "product": "Ventru Action Capsule API Credit",
+        "resource": "http://ventru.net/api/stripe/checkout-session",
+        "purpose": "paid_action_capsule_generation",
+        "checkout_session_endpoint": "http://ventru.net/api/stripe/checkout-session",
+        "quote_endpoint": "http://ventru.net/api/stripe/quote",
+        "success_url": "http://ventru.net/?stripe=success",
+        "cancel_url": "http://ventru.net/?stripe=cancel",
+        "payment_link": "https://buy.stripe.com/ventru-demo-action-capsule",
+        "receipt_header": "X-STRIPE-SESSION",
+        "settlement": "demo returns checkout_url; production verifies Stripe checkout.session.completed webhook before enabling paid resources"
+      },
+      "verification_subscription": {
+        "rail": "stripe",
+        "mode": "demo_checkout_manifest",
+        "currency": "usd",
+        "amount_cents": 19900,
+        "amount_usd": 199,
+        "product": "Ventru Verified TrustGraph",
+        "resource": "http://ventru.net/api/stripe/checkout-session",
+        "purpose": "verified_trustgraph_subscription",
+        "checkout_session_endpoint": "http://ventru.net/api/stripe/checkout-session",
+        "quote_endpoint": "http://ventru.net/api/stripe/quote",
+        "success_url": "http://ventru.net/?stripe=success",
+        "cancel_url": "http://ventru.net/?stripe=cancel",
+        "payment_link": "https://buy.stripe.com/ventru-demo-action-capsule",
+        "receipt_header": "X-STRIPE-SESSION",
+        "settlement": "demo returns checkout_url; production verifies Stripe checkout.session.completed webhook before enabling paid resources"
+      }
+    }
+  },
+  "disclosure": "Ventru can route machine-native micropayments through x402 and business-facing subscriptions/checkout through Stripe without forcing either buyer type into the wrong rail."
+}

@@ -1,0 +1,48 @@
+{
+  "name": "Ventru.net x402 Payment Rail",
+  "version": "0.1",
+  "status": "demo_ready",
+  "description": "Machine-readable payment requirements so autonomous agents can pay for Ventru API usage, capsule generation, submissions, and routed actions.",
+  "requirements": {
+    "paid_capsule": {
+      "x402_version": "0.1",
+      "scheme": "exact",
+      "network": "base-sepolia",
+      "asset": "USDC",
+      "amount": "0.01",
+      "pay_to": "0xVentruTreasuryDemo000000000000000000000000",
+      "resource": "http://ventru.net/api/paid/capsule",
+      "purpose": "paid_action_capsule_generation",
+      "settlement": "demo_accepts_x-payment_header; production verifies x402 facilitator receipt",
+      "payment_header": "X-PAYMENT",
+      "facilitator": "http://ventru.net/api/x402/status"
+    },
+    "agent_submission": {
+      "x402_version": "0.1",
+      "scheme": "exact",
+      "network": "base-sepolia",
+      "asset": "USDC",
+      "amount": "1.00",
+      "pay_to": "0xVentruTreasuryDemo000000000000000000000000",
+      "resource": "http://ventru.net/api/agent-submit",
+      "purpose": "agent_submission_review",
+      "settlement": "demo_accepts_x-payment_header; production verifies x402 facilitator receipt",
+      "payment_header": "X-PAYMENT",
+      "facilitator": "http://ventru.net/api/x402/status"
+    },
+    "routed_action": {
+      "x402_version": "0.1",
+      "scheme": "exact",
+      "network": "base-sepolia",
+      "asset": "USDC",
+      "amount": "0.25",
+      "pay_to": "0xVentruTreasuryDemo000000000000000000000000",
+      "resource": "http://ventru.net/api/actions/{slug}/{action}",
+      "purpose": "provider_action_or_lead_fee",
+      "settlement": "demo_accepts_x-payment_header; production verifies x402 facilitator receipt",
+      "payment_header": "X-PAYMENT",
+      "facilitator": "http://ventru.net/api/x402/status"
+    }
+  },
+  "note": "MVP accepts X-PAYMENT as a demo receipt. Production should verify facilitator-settled x402 receipts before serving paid resources."
+}

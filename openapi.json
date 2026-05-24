@@ -1,0 +1,122 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Ventru.net API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "http://ventru.net"
+    }
+  ],
+  "paths": {
+    "/api/search": {
+      "get": {
+        "summary": "Search verified agent-readable businesses"
+      }
+    },
+    "/api/intent": {
+      "post": {
+        "summary": "Create proprietary Ventru Intent Packet route plan for autonomous agents"
+      }
+    },
+    "/api/capsule": {
+      "post": {
+        "summary": "Create signed expiring Ventru Action Capsule for autonomous agents"
+      }
+    },
+    "/api/paid/capsule": {
+      "post": {
+        "summary": "x402-gated paid Action Capsule endpoint"
+      }
+    },
+    "/api/discover": {
+      "post": {
+        "summary": "Ventru WebProbe: inspect any URL for agent readiness and draft a profile"
+      }
+    },
+    "/api/outcome": {
+      "post": {
+        "summary": "Submit outcome telemetry after an agent uses a capsule or action endpoint"
+      }
+    },
+    "/api/verify/{slug}/challenge": {
+      "get": {
+        "summary": "Get DNS/well-known verification challenge for a business profile"
+      }
+    },
+    "/.well-known/mcp.json": {
+      "get": {
+        "summary": "MCP-style tool manifest for autonomous agents"
+      }
+    },
+    "/.well-known/ai-plugin.json": {
+      "get": {
+        "summary": "AI plugin compatibility manifest"
+      }
+    },
+    "/api/verification-plans": {
+      "get": {
+        "summary": "Verification/claim pricing and revenue rail for businesses"
+      }
+    },
+    "/api/agent-submit": {
+      "post": {
+        "summary": "Agent-native business submission endpoint; accepts URL import or structured profile"
+      }
+    },
+    "/.well-known/x402.json": {
+      "get": {
+        "summary": "x402 payment requirements for agents paying for API usage"
+      }
+    },
+    "/.well-known/stripe.json": {
+      "get": {
+        "summary": "Stripe checkout requirements for human and business payments"
+      }
+    },
+    "/.well-known/payment-rails.json": {
+      "get": {
+        "summary": "Dual x402 + Stripe payment rail manifest"
+      }
+    },
+    "/api/stripe/quote": {
+      "get": {
+        "summary": "Get Stripe checkout quote for a Ventru paid resource"
+      }
+    },
+    "/api/stripe/checkout-session": {
+      "post": {
+        "summary": "Create Stripe checkout session or demo checkout URL"
+      }
+    },
+    "/.well-known/ventru-protocol.json": {
+      "get": {
+        "summary": "Fetch the Ventru proprietary protocol manifest"
+      }
+    },
+    "/api/import-url": {
+      "post": {
+        "summary": "Import an existing human website into an agent-ready draft profile"
+      }
+    },
+    "/api/businesses": {
+      "get": {
+        "summary": "List businesses"
+      },
+      "post": {
+        "summary": "Create business profile"
+      }
+    },
+    "/api/businesses/{slug}/agent.json": {
+      "get": {
+        "summary": "Fetch agent-native business profile"
+      }
+    },
+    "/api/businesses/{slug}/llms.txt": {
+      "get": {
+        "summary": "Fetch LLM-readable business summary"
+      }
+    }
+  }
+}

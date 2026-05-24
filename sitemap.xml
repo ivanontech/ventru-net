@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>http://ventru.net/</loc></url>
+  <url><loc>http://ventru.net/docs.html</loc></url>
+  <url><loc>http://ventru.net/llms.txt</loc></url>
+  <url><loc>http://ventru.net/.well-known/agent.json</loc></url>
+  <url><loc>http://ventru.net/.well-known/agent-index.json</loc></url>
+  <url><loc>http://ventru.net/.well-known/ventru-protocol.json</loc></url>
+  <url><loc>http://ventru.net/.well-known/x402.json</loc></url>
+  <url><loc>http://ventru.net/.well-known/stripe.json</loc></url>
+  <url><loc>http://ventru.net/.well-known/payment-rails.json</loc></url>
+  <url><loc>http://ventru.net/.well-known/mcp.json</loc></url>
+  <url><loc>http://ventru.net/.well-known/ai-plugin.json</loc></url>
+  <url><loc>http://ventru.net/openapi.json</loc></url>
+  <url><loc>http://ventru.net/api/businesses</loc></url>
+  <url><loc>http://ventru.net/profiles/palm-beach-roof-pros</loc></url>
+  <url><loc>http://ventru.net/profiles/sovereign-wallet-security</loc></url>
+  <url><loc>http://ventru.net/profiles/compute-broker-alpha</loc></url>
+  <url><loc>http://ventru.net/profiles/open-palm-beach</loc></url>
+  <url><loc>http://ventru.net/api/businesses/palm-beach-roof-pros/agent.json</loc></url>
+  <url><loc>http://ventru.net/api/businesses/sovereign-wallet-security/agent.json</loc></url>
+  <url><loc>http://ventru.net/api/businesses/compute-broker-alpha/agent.json</loc></url>
+  <url><loc>http://ventru.net/api/businesses/open-palm-beach/agent.json</loc></url>
+  <url><loc>http://ventru.net/api/businesses/palm-beach-roof-pros/llms.txt</loc></url>
+  <url><loc>http://ventru.net/api/businesses/sovereign-wallet-security/llms.txt</loc></url>
+  <url><loc>http://ventru.net/api/businesses/compute-broker-alpha/llms.txt</loc></url>
+  <url><loc>http://ventru.net/api/businesses/open-palm-beach/llms.txt</loc></url>
+</urlset>

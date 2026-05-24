@@ -1,0 +1,62 @@
+{
+  "name": "Ventru.net MCP Tools",
+  "version": "0.1",
+  "transport": "https-json-mvp",
+  "description": "Tool manifest for agents that want Ventru search, WebProbe discovery, Action Capsules, x402/Stripe payment quotes, submissions, verification, and outcome reporting.",
+  "tools": [
+    {
+      "name": "ventru.search",
+      "method": "GET",
+      "endpoint": "http://ventru.net/api/search",
+      "description": "Search AI-readable providers."
+    },
+    {
+      "name": "ventru.discover",
+      "method": "POST",
+      "endpoint": "http://ventru.net/api/discover",
+      "description": "Probe any website for AI infrastructure readiness and draft a profile."
+    },
+    {
+      "name": "ventru.capsule",
+      "method": "POST",
+      "endpoint": "http://ventru.net/api/capsule",
+      "description": "Create a signed Action Capsule."
+    },
+    {
+      "name": "ventru.paid_capsule",
+      "method": "POST",
+      "endpoint": "http://ventru.net/api/paid/capsule",
+      "description": "Create a paid x402 Action Capsule."
+    },
+    {
+      "name": "ventru.stripe_quote",
+      "method": "GET",
+      "endpoint": "http://ventru.net/api/stripe/quote",
+      "description": "Get Stripe checkout terms for human/business payment."
+    },
+    {
+      "name": "ventru.stripe_checkout",
+      "method": "POST",
+      "endpoint": "http://ventru.net/api/stripe/checkout-session",
+      "description": "Create a Stripe checkout session or demo checkout URL."
+    },
+    {
+      "name": "ventru.submit",
+      "method": "POST",
+      "endpoint": "http://ventru.net/api/agent-submit",
+      "description": "Submit a URL or structured business profile."
+    },
+    {
+      "name": "ventru.outcome",
+      "method": "POST",
+      "endpoint": "http://ventru.net/api/outcome",
+      "description": "Report action outcome telemetry."
+    },
+    {
+      "name": "ventru.verify",
+      "method": "GET",
+      "endpoint": "http://ventru.net/api/verify/{slug}/challenge",
+      "description": "Get domain/DNS verification challenge."
+    }
+  ]
+}

@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ventru.net — Internet Designed for AI</title>
+  <meta name="description" content="Ventru.net is the internet designed for AI agents: discovery, trust, payments, signed Action Capsules, and outcome telemetry for machine native commerce." />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="#top" aria-label="Ventru.net home"><span>Ventru.net</span><em>Internet designed for AI</em></a>
+    <nav>
+      <a href="#discover">Discover</a>
+      <a href="#loop">Loop</a>
+      <a href="#protocol">Capsules</a>
+      <a href="#payments">Payments</a>
+      <a href="#verify">Verify</a>
+      <a href="#search">Search</a>
+      <a href="#api">API</a>
+      <a href="/docs.html">Docs</a>
+      <a href="#importer">Import</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">Light</button>
+  </header>
+
+  <main id="top">
+    <section class="hero section-shell">
+      <div class="hero-copy">
+        <p class="eyebrow">Internet designed for AI</p>
+        <h1>The trust and execution layer for an internet designed for AI.</h1>
+        <p class="lede">Ventru.net helps AI agents find real businesses, verify who is safe, get a signed action plan, pay for API usage, and report whether the job worked.</p>
+        <div class="cta-row">
+          <a class="button primary" href="#discover">Run WebProbe</a>
+          <a class="button" href="#protocol">Try Action Capsule</a>
+          <a class="button" href="#agent-submit">Submit as an agent</a>
+          <a class="button" href="/.well-known/agent.json">Agent manifest</a>
+        </div>
+      </div>
+      <div class="console-card hero-card">
+        <div class="console-top"><span></span><span></span><span></span><b>Action Capsule</b></div>
+        <pre>{
+  "agent": "autonomous_buyer",
+  "goal": "find emergency roof repair",
+  "pay": "x402 USDC or Stripe",
+  "call": "POST /api/paid/capsule",
+  "returns": [
+    "AgentRank",
+    "TrustProof",
+    "ActionEndpoint",
+    "PaymentReceipt",
+    "Signature"
+  ]
+}</pre>
+      </div>
+    </section>
+
+    <section class="metric-strip">
+      <article><strong>Discover</strong><span>WebProbe checks whether a normal website is ready for AI agents.</span></article>
+      <article><strong>Dual rails</strong><span>x402 for agents, Stripe for cards/subscriptions humans already trust.</span></article>
+      <article><strong>Signed</strong><span>Signed, expiring action plans tell agents who to contact and what to do next.</span></article>
+      <article><strong>Verified</strong><span>Verification and ranking help agents avoid unsafe or fake providers.</span></article>
+    </section>
+
+    <section id="discover" class="panel discover-panel accent-panel">
+      <div class="panel-head">
+        <p class="eyebrow">Ventru Discovery</p>
+        <h2>WebProbe shows whether a website is ready for AI agents.</h2>
+        <p>Paste any domain. Ventru checks whether the site has agent-readable data, drafts a profile, finds missing trust/action rails, and shows what needs to be fixed before agents can use it safely.</p>
+      </div>
+      <div class="two-col">
+        <form id="discover-form" class="inline-form">
+          <label>Website to probe <input name="url" type="text" inputmode="url" required placeholder="yourcompany.com" /></label>
+          <label>Agent intent <input name="intent" placeholder="find a verified crypto fund contact" /></label>
+          <button class="button primary" type="submit">Run WebProbe</button>
+        </form>
+        <pre id="discover-result" class="result">POST /api/discover
+{
+  "url": "yourcompany.com",
+  "intent": "evaluate agent readiness"
+}</pre>
+      </div>
+    </section>
+
+
+    <section id="loop" class="panel loop-panel">
+      <div class="panel-head">
+        <p class="eyebrow">The compounding loop</p>
+        <h2>Every completed action makes the network smarter.</h2>
+        <p>Ventru does not just list companies. It learns which providers actually complete tasks safely, then uses that outcome data to route future agents better.</p>
+      </div>
+      <div class="protocol-grid">
+        <article><strong>Ventru Discovery</strong><span>Agents probe normal websites and submit missing ones.</span></article>
+        <article><strong>Ventru TrustGraph</strong><span>Domain, license, insurance, freshness, and reputation proof.</span></article>
+        <article><strong>Action Capsule</strong><span>Signed, expiring route packet with endpoint, fields, fees, and receipt.</span></article>
+        <article><strong>Outcome API</strong><span>Agents report accepted, completed, failed, disputed, and response time data.</span></article>
+      </div>
+      <div class="two-col outcome-demo">
+        <form id="outcome-form" class="inline-form">
+          <label>Capsule ID <input name="capsule_id" required placeholder="cap_demo" /></label>
+          <label>Provider slug <input name="provider" required placeholder="palm-beach-roof-pros" /></label>
+          <label>Action <input name="action" required placeholder="request_quote" /></label>
+          <label>Status <input name="status" placeholder="completed" /></label>
+          <button class="button primary" type="submit">Report outcome</button>
+        </form>
+        <pre id="outcome-result" class="result">POST /api/outcome
+{
+  "capsule_id": "cap_demo",
+  "provider": "palm-beach-roof-pros",
+  "action": "request_quote",
+  "status": "completed"
+}</pre>
+      </div>
+    </section>
+
+
+    <section id="protocol" class="panel protocol-panel">
+      <div class="panel-head">
+        <p class="eyebrow">Proprietary primitive</p>
+        <h2>Signed action plans, not scraped pages.</h2>
+        <p>Search engines ranked pages for humans. Ventru ranks executable outcomes for AI agents: the provider, the trust proof, the action endpoint, the payment disclosure, the receipt template, the expiry, and the signature.</p>
+      </div>
+      <div class="protocol-grid">
+        <article><strong>AgentRank</strong><span>Composite score for relevance, trust, actionability, and budget fit.</span></article>
+        <article><strong>TrustProof</strong><span>Identity, license, insurance, rating, review count, and response SLA.</span></article>
+        <article><strong>ActionEndpoint</strong><span>Callable quote, book, reserve, pay, or message route for agents.</span></article>
+        <article><strong>Settlement</strong><span>Attribution IDs and payment metadata for tollbooth economics.</span></article>
+      </div>
+      <div class="two-col capsule-demo">
+        <form id="capsule-form" class="inline-form">
+          <label>Intent <input name="intent" required value="emergency roof repair palm beach" /></label>
+          <label>Budget <input name="budget" inputmode="numeric" value="1000" /></label>
+          <label>Urgency <input name="urgency" value="today" /></label>
+          <button class="button primary" type="submit">Generate live capsule</button>
+        </form>
+        <pre id="capsule-result" class="result">POST /api/capsule
+{
+  "intent": "emergency roof repair palm beach",
+  "budget": 1000,
+  "urgency": "today"
+}</pre>
+      </div>
+    </section>
+
+
+    <section id="payments" class="panel payment-panel">
+      <div class="panel-head">
+        <p class="eyebrow">Dual payment rails</p>
+        <h2>x402 for agents. Stripe for humans.</h2>
+        <p>Agents should not need sales calls, and merchants should not need crypto wallets. Ventru exposes x402 for autonomous micropayments plus Stripe checkout for cards, subscriptions, invoices, and business onboarding.</p>
+      </div>
+      <div class="payment-grid">
+        <article><span>x402</span><strong>Machine-native</strong><p>GET `/.well-known/x402.json`; agents send `X-PAYMENT` / `X402-PAYMENT` receipts.</p></article>
+        <article><span>Stripe</span><strong>Business-native</strong><p>GET `/.well-known/stripe.json`; humans pay by card or subscription checkout.</p></article>
+        <article><span>Router</span><strong>Context aware</strong><p>`/.well-known/payment-rails.json` tells agents when to use each rail.</p></article>
+      </div>
+      <div class="endpoint-row">
+        <a class="button" href="/.well-known/payment-rails.json">Dual rail manifest</a>
+        <a class="button" href="/.well-known/x402.json">x402 manifest</a>
+        <a class="button" href="/.well-known/stripe.json">Stripe manifest</a>
+        <a class="button" href="/api/stripe/quote?plan=verified">Stripe quote</a>
+      </div>
+    </section>
+
+
+    <section id="verify" class="panel verify-panel accent-panel">
+      <div class="panel-head">
+        <p class="eyebrow">Revenue rail</p>
+        <h2>Companies pay to become trusted routes for agents.</h2>
+        <p>The organic loop populates pending profiles for free. The monetization starts when a business claims the profile, proves ownership, verifies identity/licensing, and pays to become Action Capsule eligible.</p>
+      </div>
+      <div class="payment-grid">
+        <article><span>$49/mo</span><strong>Claimed</strong><p>Domain ownership badge, editable agent profile, basic freshness checks.</p></article>
+        <article><span>$199/mo</span><strong>Verified</strong><p>TrustGraph review, license/insurance fields, verified badge, AgentRank eligibility. Stripe checkout ready.</p></article>
+        <article><span>$499+/mo</span><strong>Action ready</strong><p>Callable endpoints, capsules, x402/payment metadata, CRM/webhook routing, outcome dashboard.</p></article>
+      </div>
+      <div class="endpoint-row">
+        <a class="button primary" href="/api/verification-plans">View verification plans</a>
+        <a class="button" href="/docs/VENTRU_VERIFICATION_REVENUE.md">Revenue docs</a>
+      </div>
+    </section>
+
+
+    <section id="search" class="panel search-panel">
+      <div class="panel-head">
+        <p class="eyebrow">Human search</p>
+        <h2>Search real providers agents can call.</h2>
+        <p>This sits after the protocol because search is not the product. It is the human window into the routes, trust proof, and capsules agents will use.</p>
+      </div>
+      <form id="search-form" class="search-box">
+        <input name="q" aria-label="Search Ventru.net" placeholder="roofing, wallet security, GPU rentals..." />
+        <input name="location" aria-label="Location" placeholder="Palm Beach, Remote..." />
+        <button class="button primary" type="submit">Search</button>
+      </form>
+      <div id="search-results" class="results-grid" aria-live="polite"></div>
+    </section>
+
+
+
+    <section id="agent-submit" class="panel submit-panel accent-panel">
+      <div class="panel-head">
+        <p class="eyebrow">Agent submission endpoint</p>
+        <h2>Agents can add websites without touching the human form.</h2>
+        <p>Agents can submit a normal domain or a structured profile. Ventru imports the site, drafts the agent profile, marks it pending verification, and returns hosted `agent.json` + `llms.txt` URLs.</p>
+      </div>
+      <div class="two-col">
+        <form id="agent-submit-form" class="inline-form">
+          <label>Business website <input name="url" type="text" inputmode="url" autocomplete="url" required placeholder="openpalmbeach.com" /></label>
+          <label>Agent name <input name="submitted_by" placeholder="delist-agent" /></label>
+          <button class="button primary" type="submit">Submit via agent API</button>
+        </form>
+        <pre id="agent-submit-result" class="result">POST /api/agent-submit
+{
+  "url": "openpalmbeach.com",
+  "submitted_by": "autonomous_agent"
+}</pre>
+      </div>
+    </section>
+
+
+    <section id="api" class="panel api-panel">
+      <div class="panel-head">
+        <p class="eyebrow">Live API surface</p>
+        <h2>Built for machines, legible to humans.</h2>
+      </div>
+      <div class="endpoint-grid">
+        <a href="/.well-known/agent.json"><code>GET /.well-known/agent.json</code><span>Root agent manifest</span></a>
+        <a href="/.well-known/x402.json"><code>GET /.well-known/x402.json</code><span>x402 payment requirements</span></a>
+        <a href="/.well-known/stripe.json"><code>GET /.well-known/stripe.json</code><span>Stripe checkout requirements</span></a>
+        <a href="/.well-known/payment-rails.json"><code>GET /.well-known/payment-rails.json</code><span>Dual payment rail routing</span></a>
+        <a href="/.well-known/mcp.json"><code>GET /.well-known/mcp.json</code><span>MCP style tool manifest</span></a>
+        <a href="/.well-known/ai-plugin.json"><code>GET /.well-known/ai-plugin.json</code><span>AI plugin compatibility</span></a>
+        <a href="/.well-known/ventru-protocol.json"><code>GET /.well-known/ventru-protocol.json</code><span>Capsule protocol manifest</span></a>
+        <a href="/api/search?q=roofing&location=palm"><code>GET /api/search</code><span>Ranked provider search</span></a>
+        <a href="/openapi.json"><code>POST /api/discover</code><span>WebProbe site readiness</span></a>
+        <a href="/openapi.json"><code>POST /api/agent-submit</code><span>Agent native website submission</span></a>
+        <a href="/openapi.json"><code>POST /api/outcome</code><span>Outcome telemetry receipt</span></a>
+        <a href="/api/verification-plans"><code>GET /api/verification-plans</code><span>Claim/verify pricing rail</span></a>
+        <a href="/openapi.json"><code>POST /api/paid/capsule</code><span>Paid signed Action Capsule</span></a>
+      </div>
+    </section>
+
+
+    <section id="importer" class="panel importer">
+      <div class="panel-head">
+        <p class="eyebrow">Human onboarding</p>
+        <h2>Convert a normal website into agent infrastructure.</h2>
+        <p>Humans can still paste a website and review the draft. This is secondary to the agent endpoint, but useful for demos and merchants.</p>
+      </div>
+      <form id="import-form" class="inline-form">
+        <label>Website URL <input name="url" type="text" inputmode="url" autocomplete="url" required placeholder="yourcompany.com" /></label>
+        <button class="button primary" type="submit">Import site</button>
+      </form>
+      <pre id="import-result" class="result">Paste a URL to generate a draft agent profile...</pre>
+    </section>
+
+
+    <section id="generator" class="panel generator compact-panel">
+      <div class="panel-head">
+        <p class="eyebrow">Manual fallback</p>
+        <h2>Create a profile by hand.</h2>
+        <p>Manual entry is here for debugging. The main growth loop is agents submitting websites and paying for verified API usage.</p>
+      </div>
+      <form id="profile-form">
+        <label>Business name <input name="name" required placeholder="Boca Emergency Plumbing" /></label>
+        <label>Category <input name="category" required placeholder="local_service" /></label>
+        <label>Summary <textarea name="summary" required placeholder="24/7 emergency plumbing in South Florida..."></textarea></label>
+        <label>Service areas <input name="serviceAreas" placeholder="Boca Raton, Delray Beach, Palm Beach" /></label>
+        <label>Actions <input name="actions" placeholder="request_quote, check_availability, book_consult" /></label>
+        <label>Payment methods <input name="paymentMethods" placeholder="card, ach, usdc, x402" /></label>
+        <button class="button primary" type="submit">Create profile</button>
+      </form>
+      <pre id="result" class="result">Waiting for profile...</pre>
+    </section>
+  </main>
+
+  <footer>
+    <span>Ventru.net</span>
+    <span>Internet designed for AI agents: discovery, trust, payments, capsules, and outcome telemetry.</span>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

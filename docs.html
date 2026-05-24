@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ventru.net Docs — Product and protocol guide</title>
+  <meta name="description" content="A clear guide to Ventru.net: WebProbe, TrustGraph, AgentRank, Action Capsules, x402 payments, Outcome API, and business verification." />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="/" aria-label="Ventru.net home"><span>Ventru.net</span><em>Docs</em></a>
+    <nav>
+      <a href="/#discover">Discover</a>
+      <a href="/#protocol">Capsules</a>
+      <a href="/#payments">x402</a>
+      <a href="/#verify">Verify</a>
+      <a href="/#search">Search</a>
+      <a href="/openapi.json">OpenAPI</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark mode">Dark</button>
+  </header>
+
+  <main class="docs-shell">
+    <section class="docs-hero">
+      <p class="eyebrow">Ventru.net docs</p>
+      <h1>The simple version first. The protocol details after.</h1>
+      <p class="docs-lede">Ventru.net helps AI agents find real businesses, verify who is safe, get a signed action plan, pay for API usage, and report whether the job worked.</p>
+      <div class="docs-toc">
+        <a href="#simple">Simple version</a>
+        <a href="#why">Why it exists</a>
+        <a href="#loop">The loop</a>
+        <a href="#capsules">Action Capsules</a>
+        <a href="#trust">Trust and rank</a>
+        <a href="#payments">x402 payments</a>
+        <a href="#endpoints">Endpoints</a>
+        <a href="#business">Business model</a>
+      </div>
+    </section>
+
+    <section id="simple" class="docs-section">
+      <h2>The simple version</h2>
+      <div class="docs-callout">
+        <p><strong>The old web:</strong> people click websites, compare tabs, fill out forms, and hope the business is real.</p>
+        <p><strong>The Ventru network:</strong> an AI agent asks for the safest route to complete a task. Ventru returns a signed packet with who to contact, why they ranked, what the agent must ask, how payment or fees work, and how to report the outcome.</p>
+      </div>
+      <p>Think of Ventru like search, verification, payment, and reputation infrastructure for AI execution. Search engines ranked pages. Ventru ranks executable outcomes.</p>
+    </section>
+
+    <section id="why" class="docs-section">
+      <h2>Why this needs to exist</h2>
+      <p>The web was designed for people, not agents. Agents waste time scraping pages, miss stale details, and cannot reliably tell which provider is real. Businesses also need a clean way to publish: “Here is my agent profile, here are my actions, here is my verification, here is how an agent can pay or book.”</p>
+      <div class="docs-grid">
+        <article class="docs-card"><h3>For agents</h3><p>Ventru gives machines structured discovery, trust proof, action endpoints, payment terms, and receipt templates.</p></article>
+        <article class="docs-card"><h3>For businesses</h3><p>Ventru gives companies a way to become visible, trusted, and callable by AI agents before the agent web becomes mainstream.</p></article>
+      </div>
+    </section>
+
+    <section id="loop" class="docs-section">
+      <h2>The Ventru loop</h2>
+      <pre class="docs-code">Discovery → TrustGraph → AgentRank → Action Capsule → x402 Rail → Execution → Outcome API → Telemetry</pre>
+      <h3>1. Discovery</h3>
+      <p>WebProbe checks a normal site for agent native signals like <code>llms.txt</code>, <code>agent.json</code>, OpenAPI, MCP, x402, schema data, and action endpoints.</p>
+      <h3>2. TrustGraph</h3>
+      <p>Ventru tracks proof: domain ownership, license, insurance, freshness, ratings, response SLA, and verification status.</p>
+      <h3>3. AgentRank</h3>
+      <p>Providers are scored by relevance, trust, actionability, freshness, and budget fit.</p>
+      <h3>4. Action Capsule</h3>
+      <p>The winning route is packaged into a signed, expiring payload that an agent can execute safely.</p>
+      <h3>5. Outcome API</h3>
+      <p>After the action, the agent reports accepted, completed, failed, disputed, response time, and satisfaction signals. That telemetry improves future ranking.</p>
+    </section>
+
+    <section id="capsules" class="docs-section">
+      <h2>Action Capsules</h2>
+      <p>An Action Capsule is the core proprietary primitive. It is not a blog post, not a directory card, and not a static listing. It is a short lived action packet for autonomous agents.</p>
+      <div class="docs-grid">
+        <article class="docs-card"><h3>Contains</h3><p>User intent, ranked providers, trust policy, commercial disclosure, executable route bodies, required fields, receipt template, expiry, and HMAC signature.</p></article>
+        <article class="docs-card"><h3>Why it matters</h3><p>Agents need safe execution paths, not another page to scrape. Capsules turn search into action.</p></article>
+      </div>
+      <pre class="docs-code">POST /api/capsule
+{
+  "intent": "emergency roof repair palm beach",
+  "budget": 1000,
+  "urgency": "today"
+}</pre>
+    </section>
+
+    <section id="trust" class="docs-section">
+      <h2>TrustGraph and AgentRank</h2>
+      <p><strong>TrustGraph</strong> is the proof layer. <strong>AgentRank</strong> is the scoring layer. Together they tell agents which route is safest and most actionable.</p>
+      <ul>
+        <li><strong>Identity:</strong> does this provider control its domain?</li>
+        <li><strong>License and insurance:</strong> are important claims verified?</li>
+        <li><strong>Freshness:</strong> is the profile current?</li>
+        <li><strong>Actionability:</strong> can an agent actually quote, book, pay, or message?</li>
+        <li><strong>Outcome history:</strong> did previous routed actions succeed?</li>
+      </ul>
+    </section>
+
+    <section id="payments" class="docs-section">
+      <h2>x402 payment rail</h2>
+      <p>Agents should be able to discover a price, pay automatically, and receive a paid API result without a sales call. Ventru exposes machine readable payment terms through <code>/.well-known/x402.json</code> and paid resources like <code>/api/paid/capsule</code>.</p>
+      <pre class="docs-code">GET /.well-known/x402.json
+POST /api/paid/capsule
+Header: X-PAYMENT: demo-receipt</pre>
+      <p>The current MVP accepts demo payment headers. Production should verify settled x402 facilitator receipts before serving paid resources.</p>
+    </section>
+
+    <section id="endpoints" class="docs-section">
+      <h2>Endpoint map</h2>
+      <div class="docs-grid">
+        <article class="docs-card"><h3>Discovery</h3><p><code>POST /api/discover</code><br><code>GET /.well-known/agent.json</code><br><code>GET /.well-known/agent-index.json</code><br><code>GET /llms.txt</code></p></article>
+        <article class="docs-card"><h3>Routing</h3><p><code>GET /api/search</code><br><code>POST /api/intent</code><br><code>POST /api/capsule</code><br><code>POST /api/paid/capsule</code></p></article>
+        <article class="docs-card"><h3>Trust</h3><p><code>GET /api/verify/{slug}/challenge</code><br><code>GET /api/verification-plans</code><br><code>POST /api/outcome</code></p></article>
+        <article class="docs-card"><h3>Agent interoperability</h3><p><code>GET /openapi.json</code><br><code>GET /.well-known/mcp.json</code><br><code>GET /.well-known/ai-plugin.json</code><br><code>GET /.well-known/ventru-protocol.json</code></p></article>
+      </div>
+    </section>
+
+    <section id="business" class="docs-section">
+      <h2>How Ventru makes money</h2>
+      <ul>
+        <li><strong>Claimed profiles:</strong> businesses pay to control and keep their machine readable profile fresh.</li>
+        <li><strong>Verified TrustGraph:</strong> businesses pay for domain, identity, license, insurance, and freshness verification.</li>
+        <li><strong>Action ready provider:</strong> businesses pay for callable endpoints, Action Capsule eligibility, webhook/CRM routing, and outcome dashboard.</li>
+        <li><strong>API usage:</strong> agents pay per capsule, discovery call, submission, or routed action through x402.</li>
+        <li><strong>Attribution and settlement:</strong> Ventru can charge lead, transaction, or routing fees with disclosure.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>Ventru.net</span>
+    <span>Docs for the Internet designed for AI layer.</span>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

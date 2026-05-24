@@ -1,0 +1,51 @@
+{
+  "name": "Ventru.net",
+  "version": "0.1",
+  "description": "Machine-readable routing and trust layer for businesses that want AI agents to discover, compare, quote, book, and transact with them.",
+  "homepage": "http://ventru.net/",
+  "capabilities": {
+    "search_businesses": true,
+    "route_agent_intents": true,
+    "generate_ventru_action_capsules": true,
+    "x402_paid_api_calls": true,
+    "stripe_checkout_payments": true,
+    "dual_payment_rails": true,
+    "accept_agent_submissions": true,
+    "probe_any_website_for_agent_readiness": true,
+    "accept_outcome_telemetry": true,
+    "issue_domain_verification_challenges": true,
+    "paid_business_verification": true,
+    "expose_mcp_tool_manifest": true,
+    "import_existing_website": true,
+    "generate_agent_json": true,
+    "generate_llms_txt": true,
+    "route_stub_actions": true
+  },
+  "discovery": {
+    "llms_txt": "http://ventru.net/llms.txt",
+    "registry_index": "http://ventru.net/.well-known/agent-index.json",
+    "openapi": "http://ventru.net/openapi.json",
+    "payment_rails": "http://ventru.net/.well-known/payment-rails.json",
+    "sitemap": "http://ventru.net/sitemap.xml"
+  },
+  "endpoints": {
+    "search": "http://ventru.net/api/search",
+    "intent_router": "http://ventru.net/api/intent",
+    "action_capsule": "http://ventru.net/api/capsule",
+    "paid_action_capsule": "http://ventru.net/api/paid/capsule",
+    "agent_submit": "http://ventru.net/api/agent-submit",
+    "webprobe": "http://ventru.net/api/discover",
+    "outcome": "http://ventru.net/api/outcome",
+    "mcp": "http://ventru.net/.well-known/mcp.json",
+    "ai_plugin": "http://ventru.net/.well-known/ai-plugin.json",
+    "verification_plans": "http://ventru.net/api/verification-plans",
+    "x402": "http://ventru.net/.well-known/x402.json",
+    "stripe": "http://ventru.net/.well-known/stripe.json",
+    "payment_rails": "http://ventru.net/.well-known/payment-rails.json",
+    "stripe_checkout": "http://ventru.net/api/stripe/checkout-session",
+    "protocol_manifest": "http://ventru.net/.well-known/ventru-protocol.json",
+    "import_url": "http://ventru.net/api/import-url",
+    "businesses": "http://ventru.net/api/businesses",
+    "profile_template": "http://ventru.net/api/businesses/{slug}/agent.json"
+  }
+}

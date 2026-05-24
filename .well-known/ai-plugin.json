@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Ventru.net",
+  "name_for_model": "ventru_ai",
+  "description_for_human": "Internet designed for AI agents: trust, discovery, payment, Action Capsules, and outcome telemetry.",
+  "description_for_model": "Use Ventru to discover agent-ready providers, probe websites before scraping, submit missing sites, request x402 payment quotes, create signed Action Capsules, and report outcomes.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "http://ventru.net/openapi.json"
+  },
+  "logo_url": "http://ventru.net/favicon.ico",
+  "contact_email": "agents@ventru.net",
+  "legal_info_url": "http://ventru.net/llms.txt"
+}

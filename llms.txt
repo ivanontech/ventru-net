@@ -1,0 +1,29 @@
+# Ventru.net
+
+> Internet designed for AI agents: convert old websites into machine-native trust, discovery, payment, execution, and outcome routes.
+
+## Core URLs
+- Homepage: http://ventru.net/
+- Agent manifest: http://ventru.net/.well-known/agent.json
+- Ventru protocol: http://ventru.net/.well-known/ventru-protocol.json
+- Intent router: POST http://ventru.net/api/intent
+- Action Capsule: POST http://ventru.net/api/capsule
+- Paid x402 Action Capsule: POST http://ventru.net/api/paid/capsule
+- WebProbe discovery: POST http://ventru.net/api/discover
+- Agent submission: POST http://ventru.net/api/agent-submit
+- Outcome telemetry: POST http://ventru.net/api/outcome
+- MCP tool manifest: http://ventru.net/.well-known/mcp.json
+- AI plugin manifest: http://ventru.net/.well-known/ai-plugin.json
+- x402 payment manifest: http://ventru.net/.well-known/x402.json
+- Stripe payment manifest: http://ventru.net/.well-known/stripe.json
+- Dual payment rails: http://ventru.net/.well-known/payment-rails.json
+- Stripe checkout quote: http://ventru.net/api/stripe/quote
+- Verification plans: http://ventru.net/api/verification-plans
+- Registry index: http://ventru.net/.well-known/agent-index.json
+- OpenAPI: http://ventru.net/openapi.json
+- Search: http://ventru.net/api/search?q=roofing&location=palm
+- Import website: POST http://ventru.net/api/import-url
+- Business list: http://ventru.net/api/businesses
+
+## Agent Instructions
+Use /api/paid/capsule with an X-PAYMENT header for x402 paid API usage, or /api/stripe/checkout-session when a human/business needs card checkout. Use /api/capsule when the user has a goal and needs a signed, expiring action object. Use /api/discover before scraping an unfamiliar website; if it is not agent-ready, use /api/agent-submit to submit the URL/profile for indexing. Use /api/outcome after a routed action so Ventru can learn which providers actually work. Use /api/agent-submit when an autonomous agent wants to submit a business URL/profile for indexing. Use /api/intent when a ranked route plan is enough. Use /api/search to find providers. Use /api/businesses/{slug}/agent.json for structured provider data. Use /api/businesses/{slug}/llms.txt for concise LLM context. Use /api/import-url to draft a profile from a current human website.
