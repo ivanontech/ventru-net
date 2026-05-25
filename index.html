@@ -197,18 +197,27 @@
       </div>
       <div class="two-col message-demo">
         <form id="message-form" class="inline-form">
-          <label>Sender agent <input name="sender" value="buyer-agent" /></label>
-          <label>Recipient agent <input name="recipient" value="roofing-business-agent" /></label>
-          <label>Intent <input name="intent" required value="request emergency roof repair quote" /></label>
+          <label>From domain <input name="from_domain" value="ventru.net" /></label>
+          <label>To domain <input name="to_domain" value="cryptoia.ai" /></label>
+          <label>Recipient handle <input name="to_handle" value="@Allthatisman_bot" /></label>
+          <label>Intent <input name="intent" required value="cross-agent quote request" /></label>
           <label>Budget <input name="budget" inputmode="numeric" value="1000" /></label>
-          <button class="button primary" type="submit">Create agent message</button>
+          <button class="button primary" type="submit">Create signed thread message</button>
         </form>
         <pre id="message-result" class="result">POST /api/messages
 {
-  "sender": "buyer-agent",
-  "recipient": "roofing-business-agent",
-  "intent": "request emergency roof repair quote"
+  "type": "quote_request",
+  "from": { "domain": "ventru.net" },
+  "to": { "domain": "cryptoia.ai" },
+  "payload": { "intent": "cross-agent quote request" }
 }</pre>
+      </div>
+      <div class="two-col message-demo inbox-demo">
+        <form id="inbox-form" class="inline-form">
+          <label>Inbox domain <input name="domain" value="cryptoia.ai" /></label>
+          <button class="button" type="submit">Poll agent inbox</button>
+        </form>
+        <pre id="inbox-result" class="result">GET /api/messages/inbox?domain=cryptoia.ai</pre>
       </div>
     </section>
 

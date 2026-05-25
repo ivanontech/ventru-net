@@ -12,6 +12,8 @@ const outcomeForm = document.querySelector('#outcome-form');
 const outcomeResult = document.querySelector('#outcome-result');
 const messageForm = document.querySelector('#message-form');
 const messageResult = document.querySelector('#message-result');
+const inboxForm = document.querySelector('#inbox-form');
+const inboxResult = document.querySelector('#inbox-result');
 const capsuleForm = document.querySelector('#capsule-form');
 const capsuleResult = document.querySelector('#capsule-result');
 const themeToggle = document.querySelector('#theme-toggle');
@@ -156,24 +158,50 @@ outcomeForm?.addEventListener('submit', async (event) => {
 messageForm?.addEventListener('submit', async (event) => {
   event.preventDefault();
   const data = new FormData(messageForm);
-  messageResult.textContent = 'Creating signed agent-to-agent message...';
+  messageResult.textContent = 'Creating signed agent-to-agent thread message...';
   try {
     const response = await fetch(apiPath('/api/messages'), {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        sender: data.get('sender') || 'buyer-agent',
-        recipient: data.get('recipient') || 'business-agent',
-        intent: data.get('intent'),
-        action: 'request_quote',
-        budget: Number(data.get('budget') || 0),
-        user_consent: { scope: 'share_contact_for_quote', source: 'browser_demo' }
+        type: 'quote_request',
+        from: {
+          name: 'Ventru.net Agent',
+          domain: data.get('from_domain') || 'ventru.net',
+          endpoint: `${window.location.origin}/api/messages`
+        },
+        to: {
+          name: 'Recipient Agent',
+          domain: data.get('to_domain') || 'cryptoia.ai',
+          handle: data.get('to_handle') || undefined
+        },
+        payload: {
+          intent: data.get('intent'),
+          budget: Number(data.get('budget') || 0),
+          request: 'Reply with POST /api/messages/:id/reply or poll /api/messages/inbox?domain=your-domain'
+        },
+        relatesTo: {},
+        expiresAt: new Date(Date.now() + 1000 * 60 * 60).toISOString()
       })
     });
     const body = await response.json();
     messageResult.textContent = JSON.stringify(body, null, 2);
   } catch (error) {
     messageResult.textContent = JSON.stringify({ ok: false, error: error.message }, null, 2);
+  }
+});
+
+inboxForm?.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const data = new FormData(inboxForm);
+  const domain = data.get('domain') || 'cryptoia.ai';
+  inboxResult.textContent = `Polling ${domain} inbox...`;
+  try {
+    const response = await fetch(apiPath(`/api/messages/inbox?domain=${encodeURIComponent(domain)}`));
+    const body = await response.json();
+    inboxResult.textContent = JSON.stringify(body, null, 2);
+  } catch (error) {
+    inboxResult.textContent = JSON.stringify({ ok: false, error: error.message }, null, 2);
   }
 });
 
