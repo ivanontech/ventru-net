@@ -10,11 +10,13 @@ const discoverForm = document.querySelector('#discover-form');
 const discoverResult = document.querySelector('#discover-result');
 const outcomeForm = document.querySelector('#outcome-form');
 const outcomeResult = document.querySelector('#outcome-result');
+const messageForm = document.querySelector('#message-form');
+const messageResult = document.querySelector('#message-result');
 const capsuleForm = document.querySelector('#capsule-form');
 const capsuleResult = document.querySelector('#capsule-result');
 const themeToggle = document.querySelector('#theme-toggle');
-const REMOTE_API_BASE = 'https://purpose-proudly-discounts-understand.trycloudflare.com';
-const API_BASE = ['ventru.net', 'www.ventru.net', 'ivanontech.github.io'].includes(window.location.hostname) ? REMOTE_API_BASE : '';
+const REMOTE_API_BASE = 'https://ventru.net';
+const API_BASE = ['ivanontech.github.io'].includes(window.location.hostname) ? REMOTE_API_BASE : '';
 
 function apiPath(path) {
   return `${API_BASE}${path}`;
@@ -61,12 +63,11 @@ function renderResults(results = []) {
         ${business.trust?.verified ? '<span class="pill">verified</span>' : '<span class="pill">pending</span>'}
       </div>
       <h3>${escapeHtml(business.name)}</h3>
-      <p>${escapeHtml(business.summary)}</p>
+      <p>${escapeHtml(business.description || business.summary || '')}</p>
       <p>${escapeHtml((business.serviceAreas || []).join(', ') || 'No service area listed')}</p>
       <div class="result-links">
-        <a href="${apiPath(`/profiles/${encodeURIComponent(business.slug)}`)}">Profile</a>
-        <a href="${apiPath(`/api/businesses/${encodeURIComponent(business.slug)}/agent.json`)}">agent.json</a>
-        <a href="${apiPath(`/api/businesses/${encodeURIComponent(business.slug)}/llms.txt`)}">llms.txt</a>
+        <a href="${apiPath(`/api/providers/${encodeURIComponent(business.id || business.slug)}/agent.json`)}">agent.json</a>
+        <a href="${apiPath(`/api/providers/${encodeURIComponent(business.id || business.slug)}/llms.txt`)}">llms.txt</a>
       </div>
     </article>
   `).join('');
@@ -152,12 +153,36 @@ outcomeForm?.addEventListener('submit', async (event) => {
   }
 });
 
+messageForm?.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const data = new FormData(messageForm);
+  messageResult.textContent = 'Creating signed agent-to-agent message...';
+  try {
+    const response = await fetch(apiPath('/api/messages'), {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        sender: data.get('sender') || 'buyer-agent',
+        recipient: data.get('recipient') || 'business-agent',
+        intent: data.get('intent'),
+        action: 'request_quote',
+        budget: Number(data.get('budget') || 0),
+        user_consent: { scope: 'share_contact_for_quote', source: 'browser_demo' }
+      })
+    });
+    const body = await response.json();
+    messageResult.textContent = JSON.stringify(body, null, 2);
+  } catch (error) {
+    messageResult.textContent = JSON.stringify({ ok: false, error: error.message }, null, 2);
+  }
+});
+
 agentSubmitForm?.addEventListener('submit', async (event) => {
   event.preventDefault();
   const data = new FormData(agentSubmitForm);
   agentSubmitResult.textContent = 'Agent submitting site to Ventru...';
   try {
-    const response = await fetch(apiPath('/api/agent-submit'), {
+    const response = await fetch(apiPath('/api/agent/submit'), {
       method: 'POST',
       headers: { 'content-type': 'application/json', 'x-payment': 'demo-agent-submission-receipt' },
       body: JSON.stringify({
@@ -178,7 +203,7 @@ importForm?.addEventListener('submit', async (event) => {
   const data = new FormData(importForm);
   importResult.textContent = 'Importing website and drafting agent profile...';
   try {
-    const response = await fetch(apiPath('/api/import-url'), {
+    const response = await fetch(apiPath('/api/import-site'), {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ url: data.get('url') })

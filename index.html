@@ -16,6 +16,7 @@
       <a href="#protocol">Capsules</a>
       <a href="#payments">Payments</a>
       <a href="#verify">Verify</a>
+      <a href="#messages">Agent Msg</a>
       <a href="#search">Search</a>
       <a href="#api">API</a>
       <a href="/docs.html">Docs</a>
@@ -166,17 +167,48 @@
     <section id="verify" class="panel verify-panel accent-panel">
       <div class="panel-head">
         <p class="eyebrow">Revenue rail</p>
-        <h2>Companies pay to become trusted routes for agents.</h2>
-        <p>The organic loop populates pending profiles for free. The monetization starts when a business claims the profile, proves ownership, verifies identity/licensing, and pays to become Action Capsule eligible.</p>
+        <h2>Free for people. Paid for businesses and LLCs.</h2>
+        <p>The organic loop populates pending profiles for free. Individuals, creators, developers, researchers, portfolios, blogs, open-source projects, and noncommercial agents should be able to prove domain ownership without paying. Commercial businesses and LLCs pay when they want trusted routing, verification, leads, capsules, and action execution.</p>
       </div>
       <div class="payment-grid">
-        <article><span>$49/mo</span><strong>Claimed</strong><p>Domain ownership badge, editable agent profile, basic freshness checks.</p></article>
-        <article><span>$199/mo</span><strong>Verified</strong><p>TrustGraph review, license/insurance fields, verified badge, AgentRank eligibility. Stripe checkout ready.</p></article>
-        <article><span>$499+/mo</span><strong>Action ready</strong><p>Callable endpoints, capsules, x402/payment metadata, CRM/webhook routing, outcome dashboard.</p></article>
+        <article><span>Free</span><strong>Personal</strong><p>Domain ownership badge, hosted `agent.json`, hosted `llms.txt`, search inclusion, and basic AgentRank for noncommercial people/projects.</p></article>
+        <article><span>$49/mo</span><strong>Claimed Business</strong><p>Business/LLC domain ownership badge, editable commercial profile, basic freshness checks.</p></article>
+        <article><span>$199/mo</span><strong>Verified Business</strong><p>TrustGraph review, license/insurance fields, verified badge, AgentRank eligibility. Stripe checkout ready.</p></article>
+        <article><span>$499+/mo</span><strong>Action Ready</strong><p>Callable endpoints, capsules, x402/payment metadata, CRM/webhook routing, outcome dashboard.</p></article>
       </div>
       <div class="endpoint-row">
         <a class="button primary" href="/api/verification-plans">View verification plans</a>
         <a class="button" href="/docs/VENTRU_VERIFICATION_REVENUE.md">Revenue docs</a>
+      </div>
+    </section>
+
+
+    <section id="messages" class="panel message-panel">
+      <div class="panel-head">
+        <p class="eyebrow">Agent-to-agent communication</p>
+        <h2>SMTP-style envelopes for agents negotiating with agents.</h2>
+        <p>Future agents will not only scrape websites. User agents, business agents, procurement agents, seller agents, and support agents need a signed message envelope for intent, trust requirements, consent, budget, deadline, response schema, expiry, and proof.</p>
+      </div>
+      <div class="protocol-grid">
+        <article><strong>Sender + recipient</strong><span>Every message names the agents or entities involved.</span></article>
+        <article><strong>User consent</strong><span>Agents disclose what data they are allowed to share or act on.</span></article>
+        <article><strong>Trust requirements</strong><span>Messages can require verified domains, receipts, and commercial disclosure.</span></article>
+        <article><strong>Signed + expiring</strong><span>Ed25519 envelopes now; DID and post-quantum hybrid options later.</span></article>
+      </div>
+      <div class="two-col message-demo">
+        <form id="message-form" class="inline-form">
+          <label>Sender agent <input name="sender" value="buyer-agent" /></label>
+          <label>Recipient agent <input name="recipient" value="roofing-business-agent" /></label>
+          <label>Intent <input name="intent" required value="request emergency roof repair quote" /></label>
+          <label>Budget <input name="budget" inputmode="numeric" value="1000" /></label>
+          <button class="button primary" type="submit">Create agent message</button>
+        </form>
+        <pre id="message-result" class="result">POST /api/messages
+{
+  "sender": "buyer-agent",
+  "recipient": "roofing-business-agent",
+  "intent": "request emergency roof repair quote"
+}</pre>
       </div>
     </section>
 
@@ -228,6 +260,7 @@
         <a href="/.well-known/x402.json"><code>GET /.well-known/x402.json</code><span>x402 payment requirements</span></a>
         <a href="/.well-known/stripe.json"><code>GET /.well-known/stripe.json</code><span>Stripe checkout requirements</span></a>
         <a href="/.well-known/payment-rails.json"><code>GET /.well-known/payment-rails.json</code><span>Dual payment rail routing</span></a>
+        <a href="/.well-known/ventru.json"><code>GET /.well-known/ventru.json</code><span>Ventru identity standard</span></a>
         <a href="/.well-known/mcp.json"><code>GET /.well-known/mcp.json</code><span>MCP style tool manifest</span></a>
         <a href="/.well-known/ai-plugin.json"><code>GET /.well-known/ai-plugin.json</code><span>AI plugin compatibility</span></a>
         <a href="/.well-known/ventru-protocol.json"><code>GET /.well-known/ventru-protocol.json</code><span>Capsule protocol manifest</span></a>
@@ -235,6 +268,7 @@
         <a href="/openapi.json"><code>POST /api/discover</code><span>WebProbe site readiness</span></a>
         <a href="/openapi.json"><code>POST /api/agent-submit</code><span>Agent native website submission</span></a>
         <a href="/openapi.json"><code>POST /api/outcome</code><span>Outcome telemetry receipt</span></a>
+        <a href="/openapi.json"><code>POST /api/messages</code><span>Agent-to-agent message envelope</span></a>
         <a href="/api/verification-plans"><code>GET /api/verification-plans</code><span>Claim/verify pricing rail</span></a>
         <a href="/openapi.json"><code>POST /api/paid/capsule</code><span>Paid signed Action Capsule</span></a>
       </div>
